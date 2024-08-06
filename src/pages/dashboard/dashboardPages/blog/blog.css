@@ -1,0 +1,21 @@
+.Blog a{
+  color: black;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+}
+.outlet{
+  margin-top: 10px;
+}
+
+.PostBlog{
+  border: 1px solid black;
+}
+
+.PostBlog form{
+  width: 80%;
+  margin: auto;
+}
+
+

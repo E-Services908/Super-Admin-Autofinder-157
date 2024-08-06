@@ -1,0 +1,38 @@
+.Navbar {
+    background-color: #333; /* Dark background color for the navbar */
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Padding around the navbar */
+    height: 10vh;
+  }
+  
+  nav ul {
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    font-size: 20px;
+    display: inline-block; 
+    margin-right: 20px; 
+    margin-top: 10px;
+  }
+  
+  nav ul li a {
+    color: #fff; 
+    text-decoration: none;
+    font-weight: bold; 
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #ffa500; 
+  }
+
+  nav ul li button{
+    margin-top: 0;
+    font-size: 15px;
+    font-weight: bolder;
+    border: 1px solid white;
+  }
+  

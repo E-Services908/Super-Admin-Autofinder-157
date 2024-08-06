@@ -1,0 +1,36 @@
+.ListItForYouData a{
+  color: black;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+}
+
+.dataTableActionBtn{
+  background-color: blue;
+  margin: 0 3px;
+  font-size: 16px;
+  padding: 5px 15px;
+  /* padding: 0; */
+}
+
+.red {
+  background-color: red;
+}
+
+.green{
+  background-color: green;
+}
+
+.gray{
+  background-color: gray;
+}
+
+.imageHolderCont{
+  width: 400px;
+  margin-top: 10px;
+
+}
+.imageHolderCont img{
+  width: 100%;
+}
