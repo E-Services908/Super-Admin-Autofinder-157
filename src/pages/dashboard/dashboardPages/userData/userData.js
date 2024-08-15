@@ -6,7 +6,7 @@ const UserData = () => {
   useEffect(() => {
     async function getUsers(){
       try {
-        const response = await axios.get("http://localhost:8000/api/user/all")
+        const response = await axios.get("https://autofinder-backend.vercel.app/api/user/all")
         // console.log(response.data.data)
         setUserData(response.data.data);
       } catch (error) {

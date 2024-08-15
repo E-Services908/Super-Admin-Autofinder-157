@@ -14,7 +14,7 @@ const ListItForYouApproved = () => {
     async function getData() {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/userRequest/",
+          "https://autofinder-backend.vercel.app/api/userRequest/",
           { service: service, approved: true }
         );
         setData(response.data.data);

@@ -12,7 +12,7 @@ const CarInspectionApproved = () => {
   useEffect(() => {
     async function getData(){
       try {
-        const response = await axios.post("http://localhost:8000/api/userRequest/" , {service:service, approved:true});
+        const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/" , {service:service, approved:true});
         setData(response.data.data)
       } catch (error) {
         console.log(error);

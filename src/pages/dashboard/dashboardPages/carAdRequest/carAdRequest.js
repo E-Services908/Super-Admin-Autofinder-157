@@ -17,7 +17,7 @@ const CarAdRequest = () => {
       try {
         console.log('here')
         const response = await axios.get(
-          "http://localhost:8000/api/carAdRequest/"
+          "https://autofinder-backend.vercel.app/api/carAdRequest/"
         );
         console.log(response.data);
         setData(response.data.data);
@@ -31,7 +31,7 @@ const CarAdRequest = () => {
   const deleteRequest = async (id) => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/carAdRequest/delete",
+        "https://autofinder-backend.vercel.app/api/carAdRequest/delete",
         { _id: id }
       );
       if (res.data.ok) {
@@ -55,7 +55,7 @@ const CarAdRequest = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/carAd/upload",
+        "https://autofinder-backend.vercel.app/api/carAd/upload",
         newData
       );
       if (response.data.ok) {

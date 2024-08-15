@@ -11,7 +11,7 @@ const DealerPackagesApprovedRequests = () => {
   useEffect(() => {
     async function fetchData(){
       try {
-        const response = await axios.post("http://localhost:8000/api/buyPackageRequest/getAll" , {approved:true})
+        const response = await axios.post("https://autofinder-backend.vercel.app/api/buyPackageRequest/getAll" , {approved:true})
         if(response.data.ok){
           setData(response.data.data)
         }
@@ -39,7 +39,9 @@ const DealerPackagesApprovedRequests = () => {
   //JSX
   return ( 
     <div className="DealerPackagesApprovedRequests">
+      <br />
       <h2>Approved Requests</h2>
+      <br />
       <DataTable
         data={data}
         columns={columns}

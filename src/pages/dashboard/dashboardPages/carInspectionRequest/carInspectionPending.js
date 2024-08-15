@@ -18,7 +18,7 @@ const CarInspectionPending = () => {
   useEffect(() => {
     async function getData(){
       try {
-        const response = await axios.post("http://localhost:8000/api/userRequest/" , {service:service, approved:false});
+        const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/" , {service:service, approved:false});
         setData(response.data.data)
       } catch (error) {
         console.log(error);
@@ -39,7 +39,7 @@ const CarInspectionPending = () => {
 
   const handleConfirmedDelete =async ()=>{
     try {
-      const response  = await axios.post('http://localhost:8000/api/userRequest/delete' , {id:idToBeDeleted?idToBeDeleted:""})
+      const response  = await axios.post('https://autofinder-backend.vercel.app/api/userRequest/delete' , {id:idToBeDeleted?idToBeDeleted:""})
       if(response.data.ok){
         const newData = data.filter((item)=>item._id!==idToBeDeleted)
         setData(newData)
@@ -53,7 +53,7 @@ const CarInspectionPending = () => {
 
   const handleUpdate =async (id)=>{
     try {
-      const response = await axios.post("http://localhost:8000/api/userRequest/update" , {id})
+      const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/update" , {id})
       console.log(response.data.ok)
       if(response.data.ok){
         const newData = data.filter((item)=> item._id !== id)

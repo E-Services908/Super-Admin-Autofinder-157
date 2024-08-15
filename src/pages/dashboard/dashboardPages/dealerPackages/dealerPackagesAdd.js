@@ -44,7 +44,7 @@ const DealerPackagesAdd = () => {
     if (validation(data)) {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/dealerPackage/add",
+          "https://autofinder-backend.vercel.app/api/dealerPackage/add",
           data
         );
         if (response.data.ok) {
@@ -62,7 +62,9 @@ const DealerPackagesAdd = () => {
   // JSX
   return (
     <div className="DealerPackagesAdd">
+      <br />
       <h2>Add Dealer Package</h2>
+      <br />
       <form className="form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="">Type:</label>

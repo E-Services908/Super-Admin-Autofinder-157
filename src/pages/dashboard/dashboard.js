@@ -9,7 +9,8 @@ const adminDashboard = () => {
         <AdminNavbar />
       </div>
       <div className="contentHolder">
-        <Outlet />
+        {/* <Outlet /> */}
+        Hello It's Dashboard
       </div>
     </div>
   );

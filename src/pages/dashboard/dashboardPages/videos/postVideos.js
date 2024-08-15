@@ -45,7 +45,7 @@ const PostVideo = () => {
     try {
       const uploadedThumbnailUrl = await uploadThumbnail(thumbnailFile);
       setThumbnailUrl(uploadedThumbnailUrl);
-      const response = await axios.post("http://localhost:8000/api/video/post", {
+      const response = await axios.post("https://autofinder-backend.vercel.app/api/video/post", {
         title: title,
         LinkURL: LinkURL,
         thumbnail: uploadedThumbnailUrl,

@@ -285,7 +285,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try{
       const dataToSend = extractDataUpToKey(inspectionData, 'rearSubFrameImages');
-      const response=await axios.post("http://localhost:8000/api/bodyFrameAccident/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/bodyFrameAccident/create",dataToSend)
       // console.log(response.data.data._id);
       setBodyFrameFormId(response.data.data._id)
     }
@@ -300,7 +300,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault();
     try {
       const dataToSend = extractDataUpToKey(inspectionData, 'starterOperation');
-      const response = await axios.post("http://localhost:8000/api/engine/create", dataToSend);
+      const response = await axios.post("https://autofinder-backend.vercel.app/api/engine/create", dataToSend);
       // console.log(response.data.data);
       setEngineFormId(response.data.data._id);
     } catch (error) {
@@ -312,7 +312,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,'handBrakeImage')
-      const response=await axios.post("http://localhost:8000/api/brakes/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/brakes/create",dataToSend)
       // console.log(response.data.data);
       setBrakesFormId(response.data.data._id)
     } catch (error) {
@@ -324,7 +324,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,"rearLeftShockImage")
-      const response=await axios.post("http://localhost:8000/api/suspension/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/suspension/create",dataToSend)
       // console.log(response.data.data._id);
       setSuspensionFormId(response.data.data._id)
     } catch (error) {
@@ -337,7 +337,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,"jackImage")
-      const response=await axios.post("http://localhost:8000/api/interior/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/interior/create",dataToSend)
       // console.log(response.data.data);
       setInteriorFormId(response.data.data._id)
     } catch (error) {
@@ -349,7 +349,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,"heating")
-      const response=await axios.post("http://localhost:8000/api/acheater/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/acheater/create",dataToSend)
       // console.log(response.data.data);
       setAcHeaterFormId(response.data.data._id)
     } catch (error) {
@@ -361,7 +361,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,'instrumentClusterGaugesImage')
-      const response=await axios.post("http://localhost:8000/api/electronics/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/electronics/create",dataToSend)
       // console.log(response.data.data);
       setElectronicsFormId(response.data.data._id)
     } catch (error) {
@@ -373,7 +373,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,"fogLightsWorking")
-      const response=await axios.post("http://localhost:8000/api/exteriorBody/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/exteriorBody/create",dataToSend)
       // console.log(response.data.data._id);
       setExteriorBodyFormId(response.data.data._id)
     } catch (error) {
@@ -385,7 +385,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,"wheelCaps")
-      const response=await axios.post("http://localhost:8000/api/tyres/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/tyres/create",dataToSend)
       // console.log(response.data.data);
       setTyresFormId(response.data.data._id)
     } catch (error) {
@@ -397,7 +397,7 @@ return{...prev, [e.target.name]: e.target.value}
     e.preventDefault()
     try {
       const dataToSend=extractDataUpToKey(inspectionData,"testDriveDoneBy")
-      const response=await axios.post("http://localhost:8000/api/testDrive/create",dataToSend)
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/testDrive/create",dataToSend)
       // console.log(response.data.data);
       setTestDriveFormId(response.data.data._id)
     } catch (error) {
@@ -414,7 +414,7 @@ return{...prev, [e.target.name]: e.target.value}
   async function handleCarInspectionReport(e){
     e.preventDefault()
     try {
-      const response=await axios.post("http://localhost:8000/api/carInspectionReport/create",{
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/carInspectionReport/create",{
         carDetailsId:carDetailsId,
         bodyFrameFormId:bodyFrameFormId,
         engineFormId: engineFormId,
@@ -436,7 +436,7 @@ return{...prev, [e.target.name]: e.target.value}
 
   async function addCarInspectionReport(){
     try {
-      const response=await axios.put("http://localhost:8000/api/carAd/insertReport",{
+      const response=await axios.put("https://autofinder-backend.vercel.app/api/carAd/insertReport",{
         carDetailsId:carDetailsId,
         carInspectionId:carInspectionReportId
       }) 

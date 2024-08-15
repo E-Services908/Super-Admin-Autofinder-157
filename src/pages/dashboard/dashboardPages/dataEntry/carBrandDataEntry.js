@@ -9,7 +9,7 @@ const CarBrandDataEntry = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:8000/Brands");
+        const response = await axios.get("https://autofinder-backend.vercel.app/Brands");
         // console.log(response.data)
         setBrandData(response.data);
       } catch (error) {
@@ -30,7 +30,7 @@ const CarBrandDataEntry = () => {
   const handleSubmit =async (e)=>{
     e.preventDefault()
     try {
-      const response = await axios.post('http://localhost:8000/Brands' , {
+      const response = await axios.post('https://autofinder-backend.vercel.app/Brands' , {
         name:brand
       })
       console.log(response)

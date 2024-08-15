@@ -14,7 +14,7 @@ const DealerPackagesAllRequests = () => {
   useEffect(() => {
     async function fetchData(){
       try {
-        const response = await axios.post("http://localhost:8000/api/buyPackageRequest/getAll" , {approved:false})
+        const response = await axios.post("https://autofinder-backend.vercel.app/api/buyPackageRequest/getAll" , {approved:false})
         if(response.data.ok){
           setData(response.data.data)
         }
@@ -27,11 +27,11 @@ const DealerPackagesAllRequests = () => {
 
   const handleApprove = async (userId , packageId , requestId)=>{
     try {
-      const response = await axios.post("http://localhost:8000/api/user/buyPackage" , {userId , packageId})
+      const response = await axios.post("https://autofinder-backend.vercel.app/api/user/buyPackage" , {userId , packageId})
       console.log(response.data.ok)
       if(response.data.ok){
         try {
-          const res = await axios.post("http://localhost:8000/api/buyPackageRequest/update" , {requestId})
+          const res = await axios.post("https://autofinder-backend.vercel.app/api/buyPackageRequest/update" , {requestId})
          const newData = data.filter((item)=>item._id!==res.data.data._id)
           setData(newData)
         } catch (error) {
@@ -89,7 +89,9 @@ const DealerPackagesAllRequests = () => {
 
   return ( 
     <div className="DealerPackagesAllRequests">
+      <br />
       <h2>All Requests to buy Dealer Package</h2>
+      <br />
       <DataTable 
         data={data}
         columns={columns}

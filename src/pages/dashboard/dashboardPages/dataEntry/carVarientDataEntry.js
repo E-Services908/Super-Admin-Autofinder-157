@@ -13,7 +13,7 @@ const CarVarientDataEntry = () => {
   useEffect(() => {
     async function fetchBrandData() {
       try {
-        const response = await axios.get("http://localhost:8000/Brands");
+        const response = await axios.get("https://autofinder-backend.vercel.app/Brands");
         setBrandData(response.data);
       } catch (error) {
         console.log(error.response);
@@ -26,7 +26,7 @@ const CarVarientDataEntry = () => {
     async function fetchModelData() {
       try {
         const response = await axios.get(
-          "http://localhost:8000/Model/" + brand
+          "https://autofinder-backend.vercel.app/Model/" + brand
         );
         console.log(response.data);
         setModelData(response.data);
@@ -40,7 +40,7 @@ const CarVarientDataEntry = () => {
   useEffect(() => {
     async function fetchVarientData(){
       try {
-        const response = await axios.get("http://localhost:8000/varient/"+model)
+        const response = await axios.get("https://autofinder-backend.vercel.app/varient/"+model)
         console.log(response.data)
         setVarientData(response.data.products)
       } catch (error) {
@@ -67,7 +67,7 @@ const CarVarientDataEntry = () => {
     e.preventDefault()
     // console.log(varient , model)
     try {
-      const response = await axios.post("http://localhost:8000/varient" , {
+      const response = await axios.post("https://autofinder-backend.vercel.app/varient" , {
         name:varient,
         model:model
       })

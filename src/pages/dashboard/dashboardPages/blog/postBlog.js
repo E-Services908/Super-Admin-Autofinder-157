@@ -80,7 +80,7 @@ const PostBlog = () => {
       const uploadedThumbnailUrl = await uploadThumbnail(thumbnailFile);
       setThumbnailUrl(uploadedThumbnailUrl);
       
-      const response = await axios.post("http://localhost:8000/api/blog/post", {
+      const response = await axios.post("https://autofinder-backend.vercel.app/api/blog/post", {
         title: title,
         subTitle: subtitle,
         body: body,

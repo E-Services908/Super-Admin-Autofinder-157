@@ -226,7 +226,7 @@ const PostNewCar = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/newCar/add",
+        "https://autofinder-backend.vercel.app/api/newCar/add",
         car
       );
       console.log(response.data);

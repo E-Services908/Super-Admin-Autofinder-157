@@ -8,7 +8,7 @@ const YearDataEntry = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:8000/api/year");
+        const response = await axios.get("https://autofinder-backend.vercel.app/api/year");
         // console.log(response.data);
         setYearData(response.data.data);
       } catch (error) {
@@ -29,7 +29,7 @@ const YearDataEntry = () => {
   const handleSubmit = async (e)=>{
     e.preventDefault()
     try {
-      const response = await axios.post("http://localhost:8000/api/year/post" , {year})
+      const response = await axios.post("https://autofinder-backend.vercel.app/api/year/post" , {year})
       console.log(response)
       if(response.data.ok){
         setYearData([...yearData, response.data.data])

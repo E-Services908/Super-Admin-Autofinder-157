@@ -19,8 +19,9 @@ const DealerPackagesAll = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.post(
-          "http://localhost:8000/api/dealerPackage/getAll"
+        const response = await axios.get(
+          // "https://autofinder-backend.vercel.app/api/dealerPackage/getAll"
+          "https://autofinder-backend.vercel.app/api/dealerPackage/getAllbike"
         );
         if (response.data.ok) {
           setData(response.data.data);
@@ -65,7 +66,7 @@ const DealerPackagesAll = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedData = {
-      heading,
+      // heading,
       premiumBundles,
       liveAdDays,
       freeBoosterPack: boosterPack,
@@ -82,7 +83,7 @@ const DealerPackagesAll = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/dealerPackage/update",
+        "https://autofinder-backend.vercel.app/api/dealerPackage/update",
         { _id: dataToBeUpdated._id, ...updatedData }
       );
       if (response.data.ok) {
@@ -122,11 +123,11 @@ const DealerPackagesAll = () => {
 
   //COULMS FOR DATA TABLE
   const columns = [
-    {
-      name: "Heading",
-      selector: (row) => row.heading,
-      width: "90px",
-    },
+    // {
+    //   name: "Heading",
+    //   selector: (row) => row.heading,
+    //   width: "90px",
+    // },
     {
       name: "Actual Price",
       selector: (row) => row.actualPrice,
@@ -162,7 +163,9 @@ const DealerPackagesAll = () => {
   //JSX
   return (
     <div className="DealerPackagesAll">
+      <br />
       <h2>All Packages</h2>
+      <br />
       <DataTable data={data} columns={columns} />
       <Modal
         isOpen={modalIsOpen}
@@ -184,7 +187,7 @@ const DealerPackagesAll = () => {
               <option value="Booster">Booster Pack</option>
             </select>
           </div>
-          <div>
+          {/* <div>
             <label>Heading</label>
             <input
               type="text"
@@ -260,7 +263,7 @@ const DealerPackagesAll = () => {
 
               onChange={(e) => setCostPerAd(e.target.value)}
             />
-          </div>
+          </div> */}
           <button type="submit" style={{"width":"200px"}}>ADD DEALER PACKAGE</button>
         </form>
       </Modal>

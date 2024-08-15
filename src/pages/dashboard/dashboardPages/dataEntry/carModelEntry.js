@@ -11,7 +11,7 @@ const CarModelDataEntry = () => {
   useEffect(() => {
     async function fetchBrandData() {
       try {
-        const response = await axios.get("http://localhost:8000/Brands");
+        const response = await axios.get("https://autofinder-backend.vercel.app/Brands");
         setBrandData(response.data);
       } catch (error) {
         console.log(error.response);
@@ -24,7 +24,7 @@ const CarModelDataEntry = () => {
     async function fetchModelData() {
       try {
         const response = await axios.get(
-          "http://localhost:8000/Model/"+brand
+          "https://autofinder-backend.vercel.app/Model/"+brand
         );
         console.log(response.data)
         setModelData(response.data);
@@ -61,7 +61,7 @@ const CarModelDataEntry = () => {
     e.preventDefault()
     // console.log(model , brand)
     try {
-      const response = await axios.post("http://localhost:8000/Model" , {
+      const response = await axios.post("https://autofinder-backend.vercel.app/Model" , {
         name:model,
         brand:brand
       })
