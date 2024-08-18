@@ -313,7 +313,7 @@ return{...prev, [e.target.name]: e.target.value}
     try {
       const dataToSend=extractDataUpToKey(inspectionData,'handBrakeImage')
       const response=await axios.post("https://autofinder-backend.vercel.app/api/brakes/create",dataToSend)
-      // console.log(response.data.data);
+      console.log(response.data.data);
       setBrakesFormId(response.data.data._id)
     } catch (error) {
       console.log(error.message);
@@ -414,7 +414,17 @@ return{...prev, [e.target.name]: e.target.value}
   async function handleCarInspectionReport(e){
     e.preventDefault()
     try {
-      const response=await axios.post("https://autofinder-backend.vercel.app/api/carInspectionReport/create",{
+      console.log(carDetailsId)
+      console.log(bodyFrameFormId)
+      console.log(engineFormId)
+      console.log(suspensionFormId)
+      console.log(interiorFormId)
+      console.log(acHeaterFormId)
+      console.log(electronicsFormId)
+      console.log(exteriorBodyFormId)
+      console.log(tyresFormId)
+      console.log(testDriveFormId)
+      const response=await axios.post("http://localhost:8000/api/carInspectionReport/create",{
         carDetailsId:carDetailsId,
         bodyFrameFormId:bodyFrameFormId,
         engineFormId: engineFormId,
@@ -427,8 +437,21 @@ return{...prev, [e.target.name]: e.target.value}
         tyresFormId: tyresFormId,
         testDriveFormId: testDriveFormId,
       })
-      console.log(response.data.data);
+      console.log('Inspection Id: ',response.data.data._id);
       setCarInspectionReportId(response.data.data._id)
+
+      const res = await axios.get(`http://localhost:8000/api/carInspectionReport/${response.data.data._id}`, {
+        responseType: 'blob'
+      });
+      const blob = res.data;
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'report.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+
     } catch (error) {
       console.log(error.message); 
     }
