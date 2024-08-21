@@ -424,7 +424,7 @@ return{...prev, [e.target.name]: e.target.value}
       console.log(exteriorBodyFormId)
       console.log(tyresFormId)
       console.log(testDriveFormId)
-      const response=await axios.post("http://localhost:8000/api/carInspectionReport/create",{
+      const response=await axios.post("https://autofinder-backend.vercel.app/api/carInspectionReport/create",{
         carDetailsId:carDetailsId,
         bodyFrameFormId:bodyFrameFormId,
         engineFormId: engineFormId,
@@ -440,7 +440,7 @@ return{...prev, [e.target.name]: e.target.value}
       console.log('Inspection Id: ',response.data.data._id);
       setCarInspectionReportId(response.data.data._id)
 
-      const res = await axios.get(`http://localhost:8000/api/carInspectionReport/${response.data.data._id}`, {
+      const res = await axios.get(`https://autofinder-backend.vercel.app/api/carInspectionReport/${response.data.data._id}`, {
         responseType: 'blob'
       });
       const blob = res.data;
