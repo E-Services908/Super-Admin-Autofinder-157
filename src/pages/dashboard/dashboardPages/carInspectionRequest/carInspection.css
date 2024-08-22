@@ -8,3 +8,16 @@
 .outlet{
   margin-top: 10px;
 }
+/* --- Inspection Reports All --- */
+#Report_All_Parent {
+  border: 0.lpx solid black;
+  padding: 1em 1em;
+}
+#Report_All_Parent_Sub {
+  border: 0.lpx solid black;
+  padding: 1em 1em;
+}
+#Report_All_Parent_Box {
+  border: 0.lpx solid black;
+  padding: 1em 1em;
+}

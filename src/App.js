@@ -17,6 +17,7 @@ import ListItForYouApproved from "./pages/dashboard/dashboardPages/ListItForYou/
 import CarInspectionData from "./pages/dashboard/dashboardPages/carInspectionRequest/carInspectionData";
 import CarInspectionApproved from "./pages/dashboard/dashboardPages/carInspectionRequest/carInspectionApproved";
 import CarInspectionPending from "./pages/dashboard/dashboardPages/carInspectionRequest/carInspectionPending";
+import CarInspectionReports_All from "./pages/dashboard/dashboardPages/carInspectionRequest/carInspectionReports_All";
 import CarAdRequest from "./pages/dashboard/dashboardPages/carAdRequest/carAdRequest";
 import DealerPackages from "./pages/dashboard/dashboardPages/dealerPackages/dealerPackages";
 import DealerPackagesAdd from "./pages/dashboard/dashboardPages/dealerPackages/dealerPackagesAdd";
@@ -38,6 +39,7 @@ import YearDataEntry from "./pages/dashboard/dashboardPages/dataEntry/yearDataEn
 import CarBrandDataEntry from "./pages/dashboard/dashboardPages/dataEntry/carBrandDataEntry";
 import CarModelDataEntry from "./pages/dashboard/dashboardPages/dataEntry/carModelEntry";
 import CarVarientDataEntry from "./pages/dashboard/dashboardPages/dataEntry/carVarientDataEntry";
+
 function App() {
   return (
     <div className="App">
@@ -66,6 +68,7 @@ function App() {
                   <Route path="approved" element={<CarInspectionApproved />} />
                   <Route path="pending" element={<CarInspectionPending />} />
                   <Route path="add-report" element={<CarInspectionReportAdd/>}/>
+                  <Route path="Reports_All" element={<CarInspectionReports_All/>}/>
                 </Route>
                 <Route path="car-ad-request" element={<CarAdRequest />}/>
                 <Route path="dealer-packages" element={<DealerPackages/>} >
