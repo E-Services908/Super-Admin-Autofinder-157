@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useLocation } from 'react-router-dom';
 import '../../dashboard.css'
+
 const CarInspectionReportAdd = () => {
     const [inspectionData, setInspectionData] = useState({
       radiatorCoreSupport: "",

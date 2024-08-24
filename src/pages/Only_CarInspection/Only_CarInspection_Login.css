@@ -1,0 +1,183 @@
+#Navbar_Container {
+  border: 0px solid transparent;
+  /* background-color: aqua; */
+  width: 100%;
+  height: 90vh;
+}
+#Box_Parent {
+  border: 0px solid transparent;
+  padding: 1em 1em;
+  width: 70%;
+  height: 100%;
+  margin: 0em auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#Box {
+  border: 0px solid transparent;
+  padding: 2em 1em;
+  width: 70%;
+}
+#Car_Inspection_Img {
+  border: 0px solid transparent;
+  padding: 1em 1em;
+  width: 45%;
+  margin: 0em auto;
+}
+#Car_Inspection_Img img {
+  border: 0px solid transparent;
+  width: 90%;
+  display: block;
+  margin: 0em auto;
+}
+#Car_Inspection_H2 {
+  border: 0px solid transparent;
+  font-weight: bold;
+  padding: 2em 0em;
+  font-size: 2em;
+  letter-spacing: 1px;
+}
+#Car_Inspection_Btn {
+  border: 0px solid transparent;
+  font-weight: bold;
+  padding: 1em 0em;
+  font-size: 1em;
+  letter-spacing: 1px;
+  display: block;
+  margin: 0em auto;
+  width: 20%;
+  background-color: #bc0000;
+}
+#Car_Inspection_Btn:hover {
+  background-color: #5a0000;
+}
+/* - Login & Sign Up - */
+.modalFormDiv_Parent {
+  border: 0.1px solid rgb(175, 175, 175);
+  padding: 2em 4em;
+  border-radius: 10px;
+  background-color: rgb(240, 240, 240);
+}
+.modalFormDiv_Parent h2 {
+  border: 0px solid transparent;
+  padding: 0.5em 0em 1em 0em;
+  font-size: 2em;
+}
+.modalFormDiv {
+  border: 0px solid transparent;
+  padding: 0.5em 0em 0.5em 0em;
+}
+.modalFormDiv label {
+  border: 0px solid transparent;
+  padding: 1.5em 0em;
+  font-weight: 600;
+  font-size: 1em;
+}
+.modalFormDiv input {
+  border: 0.1px solid grey;
+  padding: 0.5em 0.5em;
+  font-size: 1em;
+  margin: 0.5em 0em 0em 0em;
+  width: 100%;
+}
+.modalFormDiv input:focus {
+  outline: 0.05px solid rgb(204, 203, 203);
+}
+.modalFormDiv_Parent button {
+  border: 0px solid transparent;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin: 1em 0em 0.5em 0em;
+  font-size: 1em;
+  width: 100%;
+  letter-spacing: 1px;
+}
+.modalFormDiv_Parent p {
+  border: 0px solid transparent;
+  padding: 0.1em 0.5em 0.1em 0.5em;
+  text-align: center;
+}
+/* Only_CarInspection_Home */
+.contentHolder {
+  border: 0px solid transparent;
+  padding: 1em 1em;
+}
+.contentHolder h1 {
+  border: 0px solid transparent;
+  padding: 1em 1em 0.5em 1em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 2em;
+}
+.contentHolder p {
+  border: 0px solid transparent;
+  padding: 0.2em 1em;
+  letter-spacing: 1.5px;
+  font-size: 1em;
+  color: rgb(80, 80, 80);
+  text-align: center;
+}
+.contentHolder h2 {
+  border: 0px solid transparent;
+  padding: 1em 0.8em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  text-align: left;
+}
+.adCard {
+  border: 0.1px solid rgb(150, 150, 150);
+  padding: 0.6em 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1em 1.1em 0em 1.1em;
+  border-radius: 10px;
+  background-color: #dfdfdf;
+}
+.adCard:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.imgHolder {
+  border: 0px solid transparent;
+  padding: 0.3em 0.3em;
+  width: 14%;
+}
+.imgHolder img {
+  border: 0px solid transparent;
+  padding: 0.1em 0.1em;
+  width: 80%;
+  border-radius: 10px;
+}
+.detailHolder {
+  border: 0px solid transparent;
+  padding: 1em 1em;
+  width: 80%;
+}
+.My_adTitle {
+  border: 0px solid transparent;
+  padding: 0.1em 0.1em;
+  text-align: center;
+  font-size: 1.4em;
+  letter-spacing: 1.5px;
+  color: rgb(43, 43, 43);
+}
+#My_adTitle_1 {
+  border: 0px solid transparent;
+  padding: 0.1em 0.1em;
+  text-align: right;
+  font-size: 1em;
+  letter-spacing: 1px;
+  color: rgb(75, 75, 75);
+}
+#My_adTitle_2 {
+  border: 0px solid transparent;
+  padding: 0.1em 0.1em;
+  text-align: center;
+  font-size: 1em;
+  letter-spacing: 1px;
+  color: rgb(75, 75, 75);
+}

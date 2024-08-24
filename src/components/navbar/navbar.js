@@ -23,6 +23,9 @@ const Navbar = () => {
           <li>
             <Link to="/signup">Sign up</Link>
           </li>
+          <li>
+            <Link to="/Only_CarInspection_Login">Car Inspection</Link>
+          </li>
           {localStorage.getItem('isLoggedIn')? (
           <li>
             

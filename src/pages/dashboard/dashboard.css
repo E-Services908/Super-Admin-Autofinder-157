@@ -17,6 +17,7 @@
 }
 .carInspectionReportAdd{
     width: 100%;
+    padding: 3em 3em;
 }
 form{
     margin: 1rem 0;
@@ -49,3 +50,12 @@ select{
 input[type="file"]{
     margin: 1rem ;
 }
+/* --- Only_Report --- */
+#My_Car_ID_Pass {
+    border: 0px solid transparent;
+    padding: 0.5em 0em;
+    text-align: right;
+    letter-spacing: 1px;
+    color: #333;
+}
+/* --- Only_Report --- */

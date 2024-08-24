@@ -6,6 +6,7 @@ import Login from "./pages/login/login";
 import Navbar from "./components/navbar/navbar";
 import Signup from "./pages/signup/signup";
 import Dashboard from "./pages/dashboard/dashboard";
+import Dashboard_Inspect from "./pages/dashboard/dashboard_Inspect";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserData from "./pages/dashboard/dashboardPages/userData/userData";
 import ListItForYouData from "./pages/dashboard/dashboardPages/ListItForYou/listItForYouData";
@@ -39,6 +40,10 @@ import YearDataEntry from "./pages/dashboard/dashboardPages/dataEntry/yearDataEn
 import CarBrandDataEntry from "./pages/dashboard/dashboardPages/dataEntry/carBrandDataEntry";
 import CarModelDataEntry from "./pages/dashboard/dashboardPages/dataEntry/carModelEntry";
 import CarVarientDataEntry from "./pages/dashboard/dashboardPages/dataEntry/carVarientDataEntry";
+import Only_CarInspection_Login from "./pages/Only_CarInspection/Only_CarInspection_Login";
+import Only_CarInspection_Home from "./pages/Only_CarInspection/Only_CarInspection_Home";
+import My_Test from "./pages/Only_CarInspection/My_Test";
+import Only_Report from "./pages/Only_CarInspection/Only_Report";
 
 function App() {
   return (
@@ -50,7 +55,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/Only_CarInspection_Login" element={<Only_CarInspection_Login />} />
+            {/* Sub Routes */}
+            {/* Sub Routes */}
             <Route element={<ProtectedRoute />}>
+            <Route path="/Only_CarInspection_Home" element={<Only_CarInspection_Home />} />
+            <Route path="/Dashboard_Inspect" element={<Dashboard_Inspect />} />
+            {/* <Route path="/My_Test/:id" element={<My_Test />} /> */}
+            <Route path="/Only_Report/:id" element={<Only_Report />} />
               <Route path="/dashboard" element={<Dashboard />}>
                 <Route path="" element={<DashboardDefault />} />
                 <Route path="user-data" element={<UserData />} />
