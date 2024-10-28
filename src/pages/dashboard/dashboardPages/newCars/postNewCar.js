@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./newCars.css";
 import axios from "axios";
+import { Form, Upload } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import CarModelPicker from "../../../../components/carModelPicker/carModelPicker";
+
 const PostNewCar = () => {
+  // --- Picture ---
+  const [images, setImages] = useState([]);
+  const [pictures, setPictures] = useState([]); // State to store selected pictures
+  const handlePictureChange = (fileList) => {
+    setPictures(fileList);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setImages(pictures.map((picture) => picture.originFileObj));
+    }, 1000);
+  }, [pictures]);
+  // --- Picture ---
+
   const [car, setCar] = useState({
     make: "",
     model: "",
@@ -240,13 +257,48 @@ const PostNewCar = () => {
   return (
     <div className="PostNewCar">
       <div className="FormDiv">
-        <form onSubmit={handleSubmit}>
+        <form>
+          {/* <form onSubmit={handleSubmit}> */}
           {/* <CarModelPicker
             setYearPropFn={setYearFn}
             setBrandPropFn={setBrandFn}
             setModelPropFn={setModelFn}
             setVariantPropFn={setVariantFn}
           /> */}
+          <br />
+          <br />
+          <br />
+          <br />
+          <div className="formFirstDiv padding-10">
+            <Form.Item
+              label="Upload"
+              valuePropName="fileList"
+              getValueFromEvent={(e) => e && e.fileList}
+            >
+              <Upload
+                listType="picture-card"
+                fileList={pictures}
+                onChange={({ fileList }) => handlePictureChange(fileList)}
+              >
+                <button
+                  style={{
+                    border: 0,
+                    background: "none",
+                  }}
+                  type="button"
+                >
+                  <PlusOutlined />
+                  <div
+                    style={{
+                      marginTop: 8,
+                    }}
+                  >
+                    Upload
+                  </div>
+                </button>
+              </Upload>
+            </Form.Item>
+          </div>
           <div>
             <label>Make:</label>
             <input

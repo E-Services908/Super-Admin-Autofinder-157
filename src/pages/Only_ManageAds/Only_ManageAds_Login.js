@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "./Only_CarInspection_Login.css";
+import "../Only_CarInspection/Only_CarInspection_Login.css";
 import logo from "../../assets/logo1.png";
-import Inspection_Car from "../../assets/inspectionCar.png";
+import Inspection_Car from "../../assets/carPrice.png";
 import { useNavigate, Link } from "react-router-dom";
 // import { UserContext } from "../../context/userContext";
 
-const Only_CarInspection_Login = () => {
+const Only_ManageAds_Login = () => {
   // UserContext
   // const { dispatch } = useContext(UserContext);
   // Navigate
@@ -98,7 +98,7 @@ const Only_CarInspection_Login = () => {
         const user = response.data.data; // Assuming user data is in the `data` field
         const userType = user?.userType;
 
-        if (userType === "Inspector") {
+        if (userType === "USER") {
           const userId = user?._id;
           const userName = user?.name;
 
@@ -110,7 +110,7 @@ const Only_CarInspection_Login = () => {
             setLoginError("");
             emptyLoginFields();
             // Navigate
-            navigate("/Dashboard_Inspect", {
+            navigate("/Dashboard_ManageAds", {
               state: { userId, userName },
             });
           } else {
@@ -212,7 +212,7 @@ const Only_CarInspection_Login = () => {
       email: signupForm.email,
       phoneNumber: signupForm.phoneNumber,
       address: signupForm.address,
-      userType: "Inspector", // Explicitly set the userType to "Inspector"
+      userType: "USER", // Explicitly set the userType to "Inspector"
       isDeleted: false, // Default value
       package: "", // Empty value for package
       boosterPackUsed: null, // Empty value for booster pack usage
@@ -254,7 +254,7 @@ const Only_CarInspection_Login = () => {
             <img src={Inspection_Car} alt="Car Inspection" />
           </div>
           {/* Heading */}
-          <h2 id="Car_Inspection_H2">Only For Car Inspection</h2>
+          <h2 id="Car_Inspection_H2">Only For Manage Ads By Auto-Finder</h2>
           {/* Button */}
           <button id="Car_Inspection_Btn" onClick={() => setShowLogin(true)}>
             Login
@@ -263,7 +263,10 @@ const Only_CarInspection_Login = () => {
 
         {/* --- Login Box --- */}
         {showLogin && (
-          <div className="modalFormDiv_Parent">
+          <div
+            className="modalFormDiv_Parent"
+            style={{ backgroundColor: "pink" }}
+          >
             <h2>Login</h2>
             <div className="modalFormDiv">
               <label htmlFor="phoneNumber">Phone Number:</label>
@@ -303,7 +306,10 @@ const Only_CarInspection_Login = () => {
 
         {/* --- Sign Up Box --- */}
         {showSignup && (
-          <div className="modalFormDiv_Parent">
+          <div
+            className="modalFormDiv_Parent"
+            style={{ backgroundColor: "pink" }}
+          >
             <h2>Sign Up</h2>
             <div className="modalFormDiv">
               <label htmlFor="name">Name:</label>
@@ -375,4 +381,4 @@ const Only_CarInspection_Login = () => {
   );
 };
 
-export default Only_CarInspection_Login;
+export default Only_ManageAds_Login;

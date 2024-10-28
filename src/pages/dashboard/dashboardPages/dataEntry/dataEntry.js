@@ -8,6 +8,7 @@ const DataEntry = () => {
       <NavLink to={"car-brand"}>Car Brand</NavLink>
       <NavLink to={"car-model"}>Car Model</NavLink>
       <NavLink to="car-varient">Car Varient</NavLink>
+      {/* <NavLink to="car-manageAds">Manage Ads By Autofinder</NavLink> */}
       <div className="outlet">
         <Outlet />
       </div>

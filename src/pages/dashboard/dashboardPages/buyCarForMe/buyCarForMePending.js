@@ -52,8 +52,17 @@ const BuyCarForMePending = () => {
 
   const handleUpdate =async (id)=>{
     try {
-      const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/update" , {id})
-      console.log(response.data.ok)
+      // const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/update" , {id})
+      // console.log(response.data.ok)
+      const response = await axios.post(
+        "https://autofinder-backend.vercel.app/api/userRequest/update",
+        {
+          _id: id, // Pass the item ID
+          approved: true, // Set approved to true
+        }
+      );
+      console.log("Buy Car For Me - Request Approved", { id });
+ 
       if(response.data.ok){
         const newData = data.filter((item)=> item._id !== id)
         setData(newData)
@@ -94,19 +103,23 @@ const BuyCarForMePending = () => {
   const coulmns = [
     {
       name: "Client Name",
-      selector:row=>row.user.name
+      selector:row=>row.user.name,
+      width: "15%",
     },
     {
       name:"Phone No.",
-      selector:row=>row.user.phoneNumber
+      selector:row=>row.user.phoneNumber,
+      width: "15%",
     },
     {
       name:"Car Detail",
-      selector:row=>`${row.year} ${row.brand} ${row.model} ${row.variant}`
+      selector:row=>`${row.year} ${row.brand} ${row.model} ${row.varient}`,
+      width: "30%",
     },
     {
       name:"Price",
-      selector:row=>row.price
+      selector:row=>row.price,
+      width: "15%",
     },
     {
       name:"Action",
@@ -116,13 +129,16 @@ const BuyCarForMePending = () => {
           <button className="dataTableActionBtn green" onClick={()=>handleUpdate(row._id)}>✓</button>
           <button className="dataTableActionBtn red" onClick={()=>handleDelete(row._id)}><MdDeleteForever /></button>
         </div>
-      )
+      ),
+      width: "25%",
     }
   ]
 
 
   return ( 
     <div className="CarInspectionPending">
+      <br/>
+      <br/>
       <h2>Car Inspection Request Pending</h2>
       <br/>
       <hr />

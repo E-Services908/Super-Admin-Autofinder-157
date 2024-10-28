@@ -1,12 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "./Only_CarInspection_Login.css";
-import logo from "../../assets/logo1.png";
-import Inspection_Car from "../../assets/inspectionCar.png";
+import "./super_admin_login.css";
+import logo from "../../../../assets/logo1.png";
+import Inspection_Car from "../../../../assets/super_Admin.png";
 import { useNavigate, Link } from "react-router-dom";
-// import { UserContext } from "../../context/userContext";
 
-const Only_CarInspection_Login = () => {
+const Super_Admin_Login = () => {
   // UserContext
   // const { dispatch } = useContext(UserContext);
   // Navigate
@@ -98,7 +97,7 @@ const Only_CarInspection_Login = () => {
         const user = response.data.data; // Assuming user data is in the `data` field
         const userType = user?.userType;
 
-        if (userType === "Inspector") {
+        if (userType === "Super_Admin") {
           const userId = user?._id;
           const userName = user?.name;
 
@@ -110,7 +109,7 @@ const Only_CarInspection_Login = () => {
             setLoginError("");
             emptyLoginFields();
             // Navigate
-            navigate("/Dashboard_Inspect", {
+            navigate("/Dashboard_Super", {
               state: { userId, userName },
             });
           } else {
@@ -212,7 +211,7 @@ const Only_CarInspection_Login = () => {
       email: signupForm.email,
       phoneNumber: signupForm.phoneNumber,
       address: signupForm.address,
-      userType: "Inspector", // Explicitly set the userType to "Inspector"
+      userType: "Super_Admin", // Explicitly set the userType to "Inspector"
       isDeleted: false, // Default value
       package: "", // Empty value for package
       boosterPackUsed: null, // Empty value for booster pack usage
@@ -254,7 +253,7 @@ const Only_CarInspection_Login = () => {
             <img src={Inspection_Car} alt="Car Inspection" />
           </div>
           {/* Heading */}
-          <h2 id="Car_Inspection_H2">Only For Car Inspection</h2>
+          <h2 id="Car_Inspection_H2">Super Admin</h2>
           {/* Button */}
           <button id="Car_Inspection_Btn" onClick={() => setShowLogin(true)}>
             Login
@@ -286,7 +285,7 @@ const Only_CarInspection_Login = () => {
               />
             </div>
             <button onClick={handleLogin}>Login Here</button>
-            <p>
+            {/* <p>
               Don't have an account?{" "}
               <span
                 style={{ color: "blue", cursor: "pointer" }}
@@ -297,7 +296,7 @@ const Only_CarInspection_Login = () => {
               >
                 Sign Up
               </span>
-            </p>
+            </p> */}
           </div>
         )}
 
@@ -375,4 +374,5 @@ const Only_CarInspection_Login = () => {
   );
 };
 
-export default Only_CarInspection_Login;
+export default Super_Admin_Login;
+

@@ -5,8 +5,10 @@ import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import Navbar from "./components/navbar/navbar";
 import Signup from "./pages/signup/signup";
-import Dashboard from "./pages/dashboard/dashboard";
+import Dashboard_Super from "./pages/dashboard/dashboardPages/dashboard_Super.js";
 import Dashboard_Inspect from "./pages/dashboard/dashboard_Inspect";
+import Dashboard from "./pages/dashboard/dashboard.js";
+import Dashboard_ManageAds from "./pages/dashboard/dashboard_ManageAds";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserData from "./pages/dashboard/dashboardPages/userData/userData";
 import ListItForYouData from "./pages/dashboard/dashboardPages/ListItForYou/listItForYouData";
@@ -44,6 +46,15 @@ import Only_CarInspection_Login from "./pages/Only_CarInspection/Only_CarInspect
 import Only_CarInspection_Home from "./pages/Only_CarInspection/Only_CarInspection_Home";
 import My_Test from "./pages/Only_CarInspection/My_Test";
 import Only_Report from "./pages/Only_CarInspection/Only_Report";
+import Only_CI_All from "./pages/Only_CarInspection/Request/Only_CI_All";
+import Only_CI_Approved from "./pages/Only_CarInspection/Request/Only_CI_Approved";
+import Only_CI_Pending from "./pages/Only_CarInspection/Request/Only_CI_Pending";
+import Only_CI_Home from "./pages/Only_CarInspection/Request/Only_CI_Home";
+import ManageAdsEntry from "./pages/Only_ManageAds/Page/ManageAdsEntry";
+import Only_ManageAds_Login from "./pages/Only_ManageAds/Only_ManageAds_Login";
+import Super_Admin_Login from "./pages/dashboard/dashboardPages/Super_Admin/Super_Admin_Login.js";
+import UserData_Admin from "./pages/dashboard/dashboardPages/Super_Admin/userData_Admin.js";
+import Admin_Add_User from "./pages/dashboard/dashboardPages/Super_Admin/Admin_Add_User.js";
 
 function App() {
   return (
@@ -55,14 +66,56 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/Only_CarInspection_Login" element={<Only_CarInspection_Login />} />
+            {/* --- Super Admin --- */}
+            <Route
+              path="/Super_Admin_Login"
+              element={<Super_Admin_Login />}
+            />
+            <Route
+                path="/Dashboard_Super"
+                element={<Dashboard_Super />}
+              />
+            <Route
+                path="/UserData_Admin"
+                element={<UserData_Admin />}
+              />
+            <Route
+                path="/Admin_Add_User"
+                element={<Admin_Add_User />}
+              />
+            {/* --- Super Admin --- */}
+            <Route
+              path="/Only_CarInspection_Login"
+              element={<Only_CarInspection_Login />}
+            />
+            <Route
+              path="/Only_ManageAds_Login"
+              element={<Only_ManageAds_Login />}
+            />
             {/* Sub Routes */}
             {/* Sub Routes */}
             <Route element={<ProtectedRoute />}>
-            <Route path="/Only_CarInspection_Home" element={<Only_CarInspection_Home />} />
-            <Route path="/Dashboard_Inspect" element={<Dashboard_Inspect />} />
-            {/* <Route path="/My_Test/:id" element={<My_Test />} /> */}
-            <Route path="/Only_Report/:id" element={<Only_Report />} />
+              <Route
+                path="/Only_CarInspection_Home"
+                element={<Only_CarInspection_Home />}
+              />
+              <Route
+                path="/Dashboard_Inspect"
+                element={<Dashboard_Inspect />}
+              />
+              <Route
+                path="/Dashboard_ManageAds"
+                element={<Dashboard_ManageAds />}
+              />
+              <Route path="/car-manageAds" element={<ManageAdsEntry />} />
+              {/* <Route path="/My_Test/:id" element={<My_Test />} /> */}
+              <Route path="/Only_Report/:id" element={<Only_Report />} />
+              {/* Only Car Inspection Request */}
+              <Route path="/Only_CI_Home" element={<Only_CI_Home />} />
+              <Route path="/Only_CI_All" element={<Only_CI_All />} />
+              <Route path="/Only_CI_Approved" element={<Only_CI_Approved />} />
+              <Route path="/Only_CI_Pending" element={<Only_CI_Pending />} />
+              {/* Dashboard */}
               <Route path="/dashboard" element={<Dashboard />}>
                 <Route path="" element={<DashboardDefault />} />
                 <Route path="user-data" element={<UserData />} />
@@ -79,36 +132,47 @@ function App() {
                 >
                   <Route path="approved" element={<CarInspectionApproved />} />
                   <Route path="pending" element={<CarInspectionPending />} />
-                  <Route path="add-report" element={<CarInspectionReportAdd/>}/>
-                  <Route path="Reports_All" element={<CarInspectionReports_All/>}/>
+                  <Route
+                    path="add-report"
+                    element={<CarInspectionReportAdd />}
+                  />
+                  <Route
+                    path="Reports_All"
+                    element={<CarInspectionReports_All />}
+                  />
                 </Route>
-                <Route path="car-ad-request" element={<CarAdRequest />}/>
-                <Route path="dealer-packages" element={<DealerPackages/>} >
-                  <Route path="add" element={<DealerPackagesAdd/>} />
-                  <Route path="all" element={<DealerPackagesAll/>} />
-                  <Route path="all-requests" element={<DealerPackagesAllRequests/>}/>
-                  <Route path="approved-requests" element={<DealerPackagesApprovedRequests/>}/>
+                <Route path="car-ad-request" element={<CarAdRequest />} />
+                <Route path="dealer-packages" element={<DealerPackages />}>
+                  <Route path="add" element={<DealerPackagesAdd />} />
+                  <Route path="all" element={<DealerPackagesAll />} />
+                  <Route
+                    path="all-requests"
+                    element={<DealerPackagesAllRequests />}
+                  />
+                  <Route
+                    path="approved-requests"
+                    element={<DealerPackagesApprovedRequests />}
+                  />
                 </Route>
-                <Route path="buy-car-for-me" element={<BuyCarForMe/>}>
-                  <Route path="pending" element={<BuyCarForMePending/>}/>
-                  <Route path="approved" element={<BuyCarForMeApproved/>}/>
+                <Route path="buy-car-for-me" element={<BuyCarForMe />}>
+                  <Route path="pending" element={<BuyCarForMePending />} />
+                  <Route path="approved" element={<BuyCarForMeApproved />} />
                 </Route>
-                <Route path="data-entry" element={<DataEntry/>}>
-                  <Route path="year" element={<YearDataEntry/>} />
-                  <Route path="car-brand" element={<CarBrandDataEntry/>} />
-                  <Route path="car-model" element={<CarModelDataEntry/>} />
-                  <Route path="car-varient" element={<CarVarientDataEntry/>} />
+                <Route path="data-entry" element={<DataEntry />}>
+                  <Route path="year" element={<YearDataEntry />} />
+                  <Route path="car-brand" element={<CarBrandDataEntry />} />
+                  <Route path="car-model" element={<CarModelDataEntry />} />
+                  <Route path="car-varient" element={<CarVarientDataEntry />} />
                 </Route>
-                <Route path="blogs" element={<Blogs/>}>
-                  <Route path="post" element={<PostBlog/>}></Route>
+                <Route path="blogs" element={<Blogs />}>
+                  <Route path="post" element={<PostBlog />}></Route>
                 </Route>
-                <Route path="videos" element={<Videos/>}>
-                  <Route path="post" element={<PostVideo/>}></Route>
+                <Route path="videos" element={<Videos />}>
+                  <Route path="post" element={<PostVideo />}></Route>
                 </Route>
-                <Route path={"newCars"} element={<NewCars/>}>
-                  <Route path="add" element={<PostNewCar/>}/>
+                <Route path={"newCars"} element={<NewCars />}>
+                  <Route path="add" element={<PostNewCar />} />
                 </Route>
-                
               </Route>
             </Route>
           </Routes>

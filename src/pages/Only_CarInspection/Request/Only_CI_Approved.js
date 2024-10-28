@@ -1,10 +1,11 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import "../../dashboard/dashboardPages/carInspectionRequest/carInspection.css";
+import AdminNavbar from "../../../components/adminNavbar/adminNavbar_Inspect";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 
-const CarInspectionApproved = () => {
-  // Variables
+function Only_CI_Approved() {
+  // --- Logic ---
   const [data, setData] = useState([]);
   const [selectedService, setSelectedService] = useState("004"); // Default service
   const [noDataMessage, setNoDataMessage] = useState("");
@@ -53,17 +54,17 @@ const CarInspectionApproved = () => {
         row.year && row.brand && row.model
           ? `${row.year} ${row.brand} ${row.model} ${row.varient}`
           : " - ",
-      width: "25%",
+      width: "20%",
     },
     {
       name: "Price",
       selector: (row) => (row.price ? row.price : " - "),
-      width: "15%",
+      width: "10%",
     },
     {
       name: "Service",
       selector: (row) => (row.service ? row.service : " - "),
-      width: "15%",
+      width: "10%",
     },
     {
       name: "Inspector Allocate",
@@ -75,40 +76,60 @@ const CarInspectionApproved = () => {
           : "Not Appointed",
       width: "15%",
     },
+    {
+      name: "Status",
+      cell: (row) => (
+        <div>
+          <i
+            class="fa fa-check-circle"
+            style={{ fontSize: "30px", color: "green" }}
+          ></i>
+        </div>
+      ),
+      width: "15%",
+    },
   ];
+  // --- Logic ---
   // Main Body
   return (
-    <div>
-      <br />
-      <h2>Car Inspection Approved</h2>
-      <br />
-      <hr />
-      {/* --- Show Service Select Portion --- */}
-      <div style={{ padding: "1em 0em" }}>
-        <span style={{ padding: "1em 0em 0em 0em" }}>Choose Service</span>
-        <select
-          value={selectedService}
-          onChange={(e) => setSelectedService(e.target.value)}
-          style={{ width: "10%" }}
-        >
-          <option value="001">001</option>
-          <option value="002">002</option>
-          <option value="003">003</option>
-          <option value="004">004</option>
-        </select>
-        <br />
-        <br />
-        <br />
-        {noDataMessage ? (
-          <p>{noDataMessage}</p>
-        ) : (
-          <DataTable data={data} columns={coulmns} />
-        )}
+    <div className="AdminDashboard">
+      {/* Admin Navbar */}
+      <div className="contentHeader">
+        <AdminNavbar />
       </div>
-      <br />
-      {/* --- Modal --- */}
+      {/* Main Body */}
+      <div className="contentHolder">
+        <br />
+        <h1>Your All Car Inspection Request - ( Done )</h1>
+        <br />
+        <hr />
+        <br />
+        {/* Main Body */}
+        <div style={{ padding: "1em 0em" }}>
+          <span style={{ padding: "1em 0em 0em 0em" }}>Choose Service</span>
+          <select
+            value={selectedService}
+            onChange={(e) => setSelectedService(e.target.value)}
+            style={{ width: "10%" }}
+          >
+            <option value="001">001</option>
+            <option value="002">002</option>
+            <option value="003">003</option>
+            <option value="004">004</option>
+          </select>
+          <br />
+          <br />
+          <br />
+          {noDataMessage ? (
+            <p>{noDataMessage}</p>
+          ) : (
+            <DataTable data={data} columns={coulmns} />
+          )}
+        </div>
+        <br />
+      </div>
     </div>
   );
-};
+}
 
-export default CarInspectionApproved;
+export default Only_CI_Approved;

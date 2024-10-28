@@ -1,23 +1,44 @@
-.CarInspectionData a{
+.CarInspectionData a {
   color: black;
   text-decoration: none;
   border-bottom: 1px solid black;
   padding: 10px;
   margin: 5px;
 }
-.outlet{
+.outlet {
   margin-top: 10px;
 }
 /* --- Inspection Reports All --- */
 #Report_All_Parent {
-  border: 0.lpx solid black;
+  border: 0lpx solid black;
   padding: 1em 1em;
 }
 #Report_All_Parent_Sub {
-  border: 0.lpx solid black;
+  border: 0lpx solid black;
   padding: 1em 1em;
 }
 #Report_All_Parent_Box {
-  border: 0.lpx solid black;
+  border: 0lpx solid black;
   padding: 1em 1em;
+}
+/* --- Car Inspection Pending --- */
+.My_Select_Parent {
+  border: 0lpx solid black;
+  padding: 1em 1em;
+}
+.My_Select {
+  border: 0lpx solid black;
+  padding: 1em 1em;
+}
+/* --- Only_CI_Home --- */
+#My_Only_Link {
+  border: 0px solid transparent;
+  padding: 1em 1em;
+}
+#My_Only_Link a {
+  color: black;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  margin: 5px;
 }
