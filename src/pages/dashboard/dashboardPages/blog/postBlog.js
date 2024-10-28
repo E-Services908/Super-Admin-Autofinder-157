@@ -89,7 +89,7 @@ const PostBlog = () => {
       });
 
       if(response.data.ok){
-        alert("Blog post created successfully");
+        alert("Blog Posted Successfully");
         setAuthor("")
         setBody("")
         setThumbnailFile("")

@@ -3,9 +3,6 @@ import { NavLink, Link } from "react-router-dom";
 import "./adminNavbar.css";
 
 const AdminNavbar = () => {
-
-  
- 
   return (
     <div className="AdminNavbar">
       <Link to="">Dashboard</Link>
@@ -19,15 +16,6 @@ const AdminNavbar = () => {
       <NavLink to={"blogs"}>Blogs</NavLink>
       <NavLink to={"videos"}>Videos</NavLink>
       <NavLink to={"newCars"}>New Cars</NavLink>
-      
-      {/* <NavLink to="boost-your-add-data">Boost Your Ad Requests</NavLink> */}
-      {/* <Link onClick={()=>dropDownClass?setDropdownClass(""):setDropdownClass("dropCont")}>Test</Link>
-      <div className={dropDownClass}>
-        <Link className="sublink">Test</Link>
-        <Link className="sublink">Test</Link>
-        <Link className="sublink">Test</Link>
-
-      </div> */}
     </div>
   );
 };
