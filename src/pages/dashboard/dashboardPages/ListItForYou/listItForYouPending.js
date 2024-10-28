@@ -1,178 +1,320 @@
 import React from "react";
-import {useEffect , useState} from "react"
-import axios from "axios"
+import { useEffect, useState } from "react";
+import axios from "axios";
 import DataTable from "react-data-table-component";
-import Modal from 'react-modal';
-import { MdDeleteForever } from "react-icons/md";
+import Modal from "react-modal";
+import { FaRegFileImage } from "react-icons/fa";
+import { MdOutlineDoneOutline } from "react-icons/md";
 
 const ListItForYouPending = () => {
   //Variables
-  const service = "001"
-  const [data, setData] = useState([])
-  const [idToBeDeleted , setIdToBeDeleted] = useState("")
-  const [imageToBeViewed , setImageToBeViewed] = useState("")
+  // const service = "001"
+  // const [data, setData] = useState([])
+  // const [idToBeDeleted , setIdToBeDeleted] = useState("")
+  // const [imageToBeViewed , setImageToBeViewed] = useState("")
+  // //Functions
+  // useEffect(() => {
+  //   async function getData(){
+  //     try {
+  //       const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/" , {service:service, approved:false});
+  //       setData(response.data.data)
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   getData()
+  // }, []);
+  // --- New Car ( Manaage Ads ) ---
+  //Variables
+  const [data, setData] = useState([]);
+  const [imageToBeViewed, setImageToBeViewed] = useState("");
+  const [requestToBeApproved, setRequestToBeApproved] = useState(null);
+
   //Functions
   useEffect(() => {
-    async function getData(){
+    async function fetchData() {
       try {
-        const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/" , {service:service, approved:false});
-        setData(response.data.data)
+        console.log("here");
+        const response = await axios.get(
+          "https://autofinder-backend.vercel.app/api/carAdRequest/"
+        );
+        console.log(response.data);
+        setData(response.data.data);
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.error);
       }
     }
-    getData()
+    fetchData();
   }, []);
 
-  const handleDelete = (id)=>{
-    setIdToBeDeleted(id)
-    openModal()
-  }
-
-  const handleOpenImageModal = (img)=>{
-    setImageToBeViewed(img)
-    openImageModel()
-  }
-
-  const handleConfirmedDelete =async ()=>{
+  const deleteRequest = async (id) => {
     try {
-      const response  = await axios.post('https://autofinder-backend.vercel.app/api/userRequest/delete' , {id:idToBeDeleted?idToBeDeleted:""})
-      if(response.data.ok){
-        const newData = data.filter((item)=>item._id!==idToBeDeleted)
-        setData(newData)
-        setIdToBeDeleted("")
-        closeModal()
-      }
-    } catch (error) {  
-      alert(`${error.response.data.error}`) 
-    }
-  }
-
-  const handleUpdate =async (id)=>{
-    try {
-      const response = await axios.post("https://autofinder-backend.vercel.app/api/userRequest/update" , {id})
-      console.log(response.data.ok)
-      if(response.data.ok){
-        const newData = data.filter((item)=> item._id !== id)
-        setData(newData)
-        alert("Request Approved Successfully!")
+      const res = await axios.post(
+        "https://autofinder-backend.vercel.app/api/carAdRequest/delete",
+        { _id: id }
+      );
+      if (res.data.ok) {
+        const newData = data.filter((item) => item._id !== res.data.data._id);
+        setData(newData);
+        closeConfirmModal();
       }
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data.error);
     }
-  }
+  };
 
+  const handleApprove = async function (data) {
+    const userId = data.user._id;
+    let { _id, priceToPay, image, createdAt, updatedAt, user, ...newData } =
+      data;
+    if (data.days) {
+      newData = { ...newData, user: userId, ManagedByAutoFinder: true };
+    } else {
+      newData = {
+        ...newData,
+        user: userId,
+        ManagedByAutoFinder: false,
+        days: null,
+        paidStandardAd: true,
+      };
+    }
+    try {
+      const response = await axios.post(
+        "https://autofinder-backend.vercel.app/api/carAd/upload",
+        newData
+      );
+      // const response = await axios.post(
+      //   "https://autofinder-backend.vercel.app/api/carAd/upload",
+      //   { user: userId, featured: true }
+      // );
+      if (response.data.ok) {
+        deleteRequest(data._id);
+        console.log(
+          " List It For You - Car Ad - User ID - Successfully Passed : ",
+          userId
+        );
+      }
+    } catch (error) {
+      console.log(error.response.data.error);
+      console.log(" List It Failed - User ID Failed : ", userId);
+    }
+  };
+
+  // const handleApprove = async function (data) {
+  //   const userId = data.user._id;
+
+  //   try {
+  //     // First API call to update the `featured` field
+  //     const response = await axios.put(
+  //       `https://autofinder-backend.vercel.app/api/carAd/${data._id}`,
+  //       { featured: true }
+  //     );
+
+  //     // Check if the update was successful
+  //     if (response.data.ok) {
+  //       // Call deleteRequest if necessary
+  //       deleteRequest(data._id);
+  //       console.log("Car Ad Updated : ", data._id);
+  //       console.log("User ID Passed : ", userId);
+
+  //       // Prepare new data for the second API call
+  //       const newData = {
+  //         carAdId: data._id,
+  //         userId: userId,
+  //         // Add other necessary fields here
+  //         // e.g., title, description, images, etc.
+  //       };
+
+  //       // Second API call to upload the car ad
+  //       try {
+  //         const uploadResponse = await axios.post(
+  //           "https://autofinder-backend.vercel.app/api/carAd/upload",
+  //           newData
+  //         );
+
+  //         // Check if the upload was successful
+  //         if (uploadResponse.data.ok) {
+  //           console.log("Car Ad Uploaded Successfully : ", data._id);
+  //         }
+  //       } catch (uploadError) {
+  //         console.log(
+  //           "Car Ad upload failed: ",
+  //           uploadError.response?.data?.error || "An error occurred"
+  //         );
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error.response?.data?.error || "An error occurred");
+  //     console.log("User ID Failed: ", userId);
+  //   }
+  // };
+
+  const handleOpenImageModal = (base64) => {
+    setImageToBeViewed(base64);
+    openModal();
+  };
+
+  const handleOpenConfirmModal = (data) => {
+    console.log("here");
+    setRequestToBeApproved(data);
+    openConfirmModal();
+  };
 
   // MODAL FUNCTIONS
   let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [imageModalIsOpen, setImageModalIsOpen] = React.useState(false);
-
-
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
   }
-
-  function openImageModel(){
-    setImageModalIsOpen(true)
+  function openConfirmModal() {
+    setConfirmModalIsOpen(true);
   }
 
   function afterOpenModal() {
-    subtitle.style.color = '#f00';
+    subtitle.style.color = "#f00";
   }
 
   function closeModal() {
     setIsOpen(false);
   }
-  function closeImageModal(){
-    setImageModalIsOpen(false)
+  function closeConfirmModal() {
+    setConfirmModalIsOpen(false);
   }
+  // --- New Car ( Manaage Ads ) ---
 
-  
+  // // MODAL FUNCTIONS
+  // let subtitle;
+  // const [modalIsOpen, setIsOpen] = React.useState(false);
+  // const [imageModalIsOpen, setImageModalIsOpen] = React.useState(false);
+
+  // function openModal() {
+  //   setIsOpen(true);
+  // }
+
+  // function openImageModel(){
+  //   setImageModalIsOpen(true)
+  // }
+
+  // function afterOpenModal() {
+  //   subtitle.style.color = '#f00';
+  // }
+
+  // function closeModal() {
+  //   setIsOpen(false);
+  // }
+  // function closeImageModal(){
+  //   setImageModalIsOpen(false)
+  // }
 
   //DataTable Columns
-  const coulmns = [
+  const columns = [
     {
       name: "Client Name",
-      selector:row=>row.user.name
+      selector: (row) => (row.user && row.user.name ? row.user.name : " - "),
+      width: "20%",
     },
     {
-      name:"Phone No.",
-      selector:row=>row.user.phoneNumber
+      name: "Car Detail",
+      selector: (row) =>
+        row.brand && row.model && row.year
+          ? `${row.brand} ${row.model} ${row.year}`
+          : " - ",
+      width: "20%",
     },
     {
-      name:"Car Detail",
-      selector:row=>`${row.year} ${row.brand} ${row.model} ${row.variant}`
+      name: "Location",
+      selector: (row) => (row.location ? row.location : " - "),
+      width: "10%",
     },
     {
-      name:"Price",
-      selector:row=>row.price
+      name: "Transmission",
+      selector: (row) => (row.transmission ? row.transmission : " - "),
+      width: "20%",
     },
     {
-      name:"Action",
-      cell: row => (
+      name: "Price",
+      selector: (row) => (row.priceToPay ? row.priceToPay : " - "),
+      width: "10%",
+    },
+    {
+      name: "Action",
+      selector: (row) => (
         <div>
-          <button className="dataTableActionBtn gray" onClick={()=>handleOpenImageModal(row.image)}>Img</button>
-          <button className="dataTableActionBtn green" onClick={()=>handleUpdate(row._id)}>✓</button>
-          <button className="dataTableActionBtn red" onClick={()=>handleDelete(row._id)}><MdDeleteForever /></button>
+          <button
+            className="dataTableActionBtn green"
+            onClick={() => handleOpenImageModal(row.image)}
+          >
+            <FaRegFileImage />
+          </button>
+          {/* <button className="dataTableActionBtn green" onClick={() => handleOpenConfirmModal(row._id)}><MdOutlineDoneOutline /></button> */}
+          <button
+            className="dataTableActionBtn green"
+            onClick={() => handleApprove(row)}
+          >
+            <MdOutlineDoneOutline />
+          </button>
+          <button onClick={() => deleteRequest(row._id)}>Del</button>
         </div>
-      )
-    }
-  ]
-
-
- 
+      ),
+      width: "20%",
+    },
+  ];
 
   //JSX
   return (
-    <div className="ListItForYouData">
-      <h2>List It For You Pending Requests</h2>
-      <br/>
+    <div className="CarAdRequest">
+      <br />
+      <h2>List It For You Requests - Pending</h2>
+      <br />
       <hr />
-      <DataTable 
-        data={data}
-        columns={coulmns}
-      />
-
-
+      <br />
+      <DataTable data={data} columns={columns} pagination={true} />
+      {/* IMAGE MODAL */}
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Delete Modal"
-      >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Confirm Delete</h2>
-        <p>Are you sure you want to delete this record?</p>
-        <button onClick={closeModal} style={{float: "right", marginLeft:"15px"}}>No</button>
-        <button onClick={handleConfirmedDelete} style={{float: "right", marginLeft:"15px"}}>Yes</button>
-      </Modal>
-
-      <Modal
-        isOpen={imageModalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeImageModal}
-        style={customStyles}
-        contentLabel="Image Modal"
+        contentLabel="Example Modal"
+        ariaHideApp={false}
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Image</h2>
         <div className="imageHolderCont" alt="test">
-          <img  src={imageToBeViewed}/>
+          <img src={imageToBeViewed} />
+        </div>
+      </Modal>
+      {/* CONFIRM MODAL */}
+      <Modal
+        isOpen={confirmModalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeConfirmModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+        ariaHideApp={false}
+      >
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Confirm</h2>
+        <div>
+          <p>Are you sure you want to approve this ad?</p>
+          <button onClick={() => handleApprove(requestToBeApproved)}>
+            Yes
+          </button>
+          <button onClick={() => closeConfirmModal()}>No</button>
         </div>
       </Modal>
     </div>
   );
 };
 
-export default ListItForYouPending;
-
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
   },
-}
+};
+
+export default ListItForYouPending;

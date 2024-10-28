@@ -52,6 +52,8 @@ const PostVideo = () => {
       });
 
       console.log(response.data.data);
+      alert(" Video Posted Syccessfully ");
+      
     } catch (error) {
       console.error("Error submitting blog post:", error);
     }

@@ -1,9 +1,19 @@
 const DashboardDefault = () => {
-  return ( 
+  return (
     <div className="DashboardDefault">
-      SOMETHING
+      <div style={{ width: "100%", }}>
+        <br />
+        <br />
+        <h1>Welcome</h1>
+        <br />
+        <br />
+        <h1>Auto Finder Dashboard - ( Admin )</h1>
+        <br />
+        <br />
+        <hr />
+      </div>
     </div>
-   );
-}
- 
+  );
+};
+
 export default DashboardDefault;
