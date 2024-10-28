@@ -19,18 +19,45 @@ const UserData = () => {
   const columns = [
     {
       name:"ID",
-      selector:row=>row._id
+      selector: (row) => (row._id ? row._id : " - "),
+      width: "20%",
     },
     {
       name:"Name",
-      selector:row=>row.name
+      selector: (row) => (row.name ? row.name : " - "),
+      width: "15%",
+    },
+    {
+      name:"Email",
+      selector: (row) => (row.email ? row.email : " - "),
+      width: "20%",
+    },
+    {
+      name:"Phone Number",
+      selector: (row) => (row.phoneNumber ? row.phoneNumber : " - "),
+      width: "15%",
+    },
+    {
+      name:"Address",
+      selector: (row) => (row.address ? row.address : " - "),
+      width: "15%",
+    },
+    {
+      name:"User Type",
+      selector: (row) => (row.userType ? row.userType : " - "),
+      width: "15%",
     },
   ]
   return (
     <div className="UserData">
-      <h2>User Data</h2>
+      <br/>
+      <br/>
+      <h2>All User's Data in Auto Finder</h2>
       <br/>
       <hr />
+      <br/>
+      <br/>
+      <br/>
       <DataTable 
         data={userData}
         columns={columns}

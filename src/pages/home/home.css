@@ -1,3 +1,34 @@
-.heading{
-    margin-top: 20px;
+#Box_Sub {
+  border: 0px solid transparent;
+  padding: 1em 1em;
+}
+#Box_H1 {
+  border: 0px solid transparent;
+  padding: 1.5em 1em 0.5em 1em;
+  font-size: 2.5em;
+  font-weight: bold;
+  letter-spacing: 2.5px;
+  text-transform: capitalize;
+  color: #bc0000;
+}
+#Box_Sub p {
+  border: 0px solid transparent;
+  padding: 0.5em 1em 0.5em 1em;
+  font-size: 1em;
+  letter-spacing: 2.5px;
+  text-transform: capitalize;
+  color: rgb(41, 41, 41);
+  text-align: center;
+}
+#Box_Img {
+  border: 0px solid transparent;
+  padding: 6em 1em 1em 1em;
+  width: 55%;
+  margin: 0em auto;
+}
+#Box_Img img {
+  border: 0px solid transparent;
+  width: 50%;
+  display: block;
+  margin: 0em auto;
 }

@@ -1,76 +1,250 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./Only_CarInspection_Login.css";
 import logo from "../../assets/logo1.png";
 import Inspection_Car from "../../assets/inspectionCar.png";
 import { useNavigate, Link } from "react-router-dom";
+// import { UserContext } from "../../context/userContext";
 
 const Only_CarInspection_Login = () => {
+  // UserContext
+  // const { dispatch } = useContext(UserContext);
   // Navigate
   const navigate = useNavigate();
-  // Login
+  // Previous Box Logic
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-
+  // --- Login & SignUp ---
   const [loginPhoneNumber, setLoginPhoneNumber] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
+  const [loginError, setLoginError] = useState("");
+  const [disableBtn, setDisableBtn] = useState(false);
+  const [signupError, setSignupError] = useState("");
   const [signupForm, setSignupForm] = useState({
     name: "",
     email: "",
-    phoneNumber: "",
     password: "",
     address: "",
+    phoneNumber: "",
   });
 
-  const handleChangeSignupForm = (e) => {
-    setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
+  const loginValidation = () => {
+    if (loginPhoneNumber === "" || loginPassword === "") return false;
+    else return true;
   };
 
-  const handleLogin = async () => {
-    if(loginPhoneNumber === "03335448744" && loginPassword === "Pass@000"){
-        localStorage.setItem('isLoggedIn', true);
-        navigate("/Dashboard_Inspect")
-      }
+  const emptyLoginFields = () => {
+    setLoginPhoneNumber("");
+    setLoginPassword("");
   };
 
-//   const handleLogin = async () => {
-//     try {
-//       const response = await axios.post(
-//         "https://autofinder-backend.vercel.app/api/user/login",
-//         { phoneNumber: loginPhoneNumber, password: loginPassword }
-//       );
-//       if (response.data.success) {
-//         // Assuming the response contains a 'success' field
-//         window.location.href = "/home"; // Navigate to home
-//       } else {
-//         alert("Incorrect password"); // Show alert if password is incorrect
-//       }
-//     } catch (error) {
-//       console.error("Login error:", error);
-//       alert("Login failed. Please try again."); // General error handling
-//     }
-//   };
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
 
-  const handleSignup = async () => {
+  //   if (!loginValidation()) {
+  //     setLoginError("Please enter your email and password.");
+  //     return;
+  //   }
+
+  //   setDisableBtn(true);
+
+  //   try {
+  //     const response = await axios.post(
+  //       "https://autofinder-backend.vercel.app/api/user/login",
+  //       { phoneNumber: loginPhoneNumber, password: loginPassword }
+  //     );
+
+  //     if (response.data.ok) {
+  //       localStorage.setItem("token", response.data.token);
+  //       setLoginError("");
+  //       setDisableBtn(false);
+  //       emptyLoginFields();
+  //       console.log(response.data);
+  //       // localStorage.setItem('isLoggedIn', true);
+  //       // navigate("/Dashboard_Inspect")
+  //       localStorage.setItem("isLoggedIn", true);
+  //       localStorage.setItem("userId", response.data.user._id); // Store the user ID
+  //       navigate("/Dashboard_Inspect", {
+  //         state: { userId: response.data.user._id },
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log(error.response.data.error);
+  //     setLoginError(error.response.data.error);
+  //     setDisableBtn(false);
+  //     emptyLoginFields();
+  //   }
+  // };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!loginValidation()) {
+      setLoginError("Please enter your email and password.");
+      return;
+    }
+
+    setDisableBtn(true);
+
     try {
       const response = await axios.post(
-        "https://autofinder-backend.vercel.app/api/user/signup",
-        signupForm
+        "https://autofinder-backend.vercel.app/api/user/login",
+        { phoneNumber: loginPhoneNumber, password: loginPassword }
       );
-      if (response.data.success) {
-        // Assuming the response contains a 'success' field
-        alert("User Successfully Sign Up"); // Show success alert
-        window.location.href = "/home"; // Navigate to home
-      } else if (response.data.error === "User already exists") {
-        alert("User Already Exist"); // Show alert if user already exists
+
+      console.log("API Response:", response.data);
+
+      if (response && response.data && response.data.ok) {
+        const user = response.data.data; // Assuming user data is in the `data` field
+        const userType = user?.userType;
+
+        if (userType === "Inspector") {
+          const userId = user?._id;
+          const userName = user?.name;
+
+          if (userId) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("userId", userId); // Store the user ID
+            localStorage.setItem("userName", userName); // Store the user ID
+            setLoginError("");
+            emptyLoginFields();
+            // Navigate
+            navigate("/Dashboard_Inspect", {
+              state: { userId, userName },
+            });
+          } else {
+            console.error("User ID is missing in the response data.");
+            setLoginError("User ID is missing. Please try again later.");
+          }
+        } else {
+          alert("This user is not allowed to login access.");
+          setLoginError("This user is not allowed to login access.");
+        }
+      } else {
+        setLoginError("Login failed. Please try again.");
       }
     } catch (error) {
-      console.error("Signup error:", error);
-      alert("Signup failed. Please try again."); // General error handling
+      console.error("Error during login:", error);
+      setLoginError(
+        error.response?.data?.error || "An error occurred during login."
+      );
+    } finally {
+      setDisableBtn(false);
     }
   };
 
+  const handleChangeSignupForm = (e) => {
+    setSignupForm({
+      ...signupForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const signupValidation = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^03\d{9}$/;
+
+    if (
+      !signupForm.name ||
+      !signupForm.email ||
+      !signupForm.phoneNumber ||
+      !signupForm.password ||
+      !signupForm.address
+    ) {
+      setSignupError("Please Fill All The Fields");
+      return false;
+    }
+
+    if (signupForm.name.length < 3) {
+      setSignupError("Name should be minimum of 3 characters long");
+      return false;
+    }
+
+    if (!emailPattern.test(signupForm.email)) {
+      setSignupError("Please enter a valid email address");
+      return false;
+    }
+
+    if (signupForm.address.length < 3) {
+      setSignupError("Address should be minimum of 3 characters long");
+      return false;
+    }
+
+    if (!phonePattern.test(signupForm.phoneNumber)) {
+      setSignupError("Phone number should be in the format 03xxxxxxxxx");
+      return false;
+    }
+
+    if (
+      signupForm.password.length < 8 ||
+      !/\d/.test(signupForm.password) ||
+      !/[a-zA-Z]/.test(signupForm.password)
+    ) {
+      setSignupError(
+        "Password should be minimum of 8 characters and should include text and at least one number"
+      );
+      return false;
+    }
+
+    return true;
+  };
+
+  const emptySignupFields = () => {
+    setSignupForm({
+      name: "",
+      email: "",
+      password: "",
+      address: "",
+      phoneNumber: "",
+    });
+  };
+
+  const handleSignup = async () => {
+    if (!signupValidation()) {
+      return;
+    }
+
+    // Construct the signup data with the desired structure
+    const signupData = {
+      name: signupForm.name,
+      password: signupForm.password, // Ensure this is securely hashed on the server-side
+      email: signupForm.email,
+      phoneNumber: signupForm.phoneNumber,
+      address: signupForm.address,
+      userType: "Inspector", // Explicitly set the userType to "Inspector"
+      isDeleted: false, // Default value
+      package: "", // Empty value for package
+      boosterPackUsed: null, // Empty value for booster pack usage
+      favoriteAds: [], // Empty array for favorite ads
+    };
+
+    try {
+      setDisableBtn(true);
+      const response = await axios.post(
+        "https://autofinder-backend.vercel.app/api/user/signup",
+        signupData
+      );
+
+      if (response.data.ok) {
+        setDisableBtn(false);
+        setSignupError("");
+        emptySignupFields();
+      } else {
+        // Handle unexpected response
+        setSignupError("Failed to sign up. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setDisableBtn(false);
+      setSignupError(
+        error.response?.data?.error || "An error occurred during signup."
+      );
+    }
+  };
+
+  // --- Login & SignUp ---
+  // Main Body
   return (
     <div id="Navbar_Container">
       <div id="Box_Parent">
