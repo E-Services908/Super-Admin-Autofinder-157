@@ -5,34 +5,42 @@ import DataTable from "react-data-table-component";
 import Modal from "react-modal";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
+import "./carInspection.css";
 
 //Component
 const CarInspectionPending = () => {
-  // //Variables
-  // const service = "002";
   const [data, setData] = useState([]);
   const [idToBeDeleted, setIdToBeDeleted] = useState("");
   const [imageToBeViewed, setImageToBeViewed] = useState("");
+  const [selectedService, setSelectedService] = useState("004");
+  const [noDataMessage, setNoDataMessage] = useState("");
 
   //Functions
   useEffect(() => {
     async function getData() {
       try {
-        // Fetch data for all services
+        // Fetch data for the selected service only
         const response = await axios.post(
           "https://autofinder-backend.vercel.app/api/userRequest/",
           {
-            // service: "004",
+            service: selectedService,
             approved: false,
           }
         );
-        setData(response.data.data);
+        const fetchedData = response.data.data;
+        if (fetchedData.length === 0) {
+          setNoDataMessage("No Data In This Service");
+          setData([]);
+        } else {
+          setNoDataMessage("");
+          setData(fetchedData);
+        }
       } catch (error) {
         console.log(error);
       }
     }
     getData();
-  }, []);
+  }, [selectedService]);
 
   const handleDelete = (id) => {
     setIdToBeDeleted(id);
@@ -64,22 +72,57 @@ const CarInspectionPending = () => {
   };
 
   const handleUpdate = async (id) => {
+    if (!selectedUser) {
+      alert("Please select an inspector first.");
+      return; // Exit the function if no inspector is selected
+    }
+
     try {
       const response = await axios.post(
         "https://autofinder-backend.vercel.app/api/userRequest/update",
-        { id }
+        {
+          _id: id, // Pass the item ID
+          approved: true, // Set approved to true
+          userAllocate: selectedUser, // Pass the selected user ID
+        }
       );
-      console.log(response.data.ok);
+      console.log("ID Finally Passed:", { id, userAllocate: selectedUser }); // Log the IDs
       if (response.data.ok) {
         const newData = data.filter((item) => item._id !== id);
         setData(newData);
         alert("Request Approved Successfully!");
       }
     } catch (error) {
-      console.log(error.response.data);
+      console.log("Could not update the request:", error.response.data);
     }
   };
 
+  //  --- Get ALl User ---
+  const [userList, setUserList] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
+
+  useEffect(() => {
+    // Fetch all users from the API
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          "https://autofinder-backend.vercel.app/api/user/all"
+        );
+        if (response.data.ok) {
+          // Filter users with userType "Inspector"
+          const inspectors = response.data.data.filter(
+            (user) => user.userType === "Inspector"
+          );
+          setUserList(inspectors); // Set filtered user data
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+  //  --- Get ALl User ---
   // MODAL FUNCTIONS
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -109,26 +152,31 @@ const CarInspectionPending = () => {
     {
       name: "Client Name",
       selector: (row) => (row.user && row.user.name ? row.user.name : " - "),
+      width: "10%",
     },
     {
       name: "Phone No.",
       selector: (row) =>
         row.user && row.user.phoneNumber ? row.user.phoneNumber : " - ",
+      width: "10%",
     },
     {
       name: "Car Detail",
       selector: (row) =>
-        row.year && row.brand && row.model && row.variant
-          ? `${row.year} ${row.brand} ${row.model} ${row.variant}`
+        row.year && row.brand && row.model
+          ? `${row.year} ${row.brand} ${row.model} ${row.varient}`
           : " - ",
+      width: "15%",
     },
     {
       name: "Price",
       selector: (row) => (row.price ? row.price : " - "),
+      width: "10%",
     },
     {
       name: "Service",
       selector: (row) => (row.service ? row.service : " - "),
+      width: "10%",
     },
     {
       name: "Action",
@@ -142,7 +190,7 @@ const CarInspectionPending = () => {
           </button>
           <button
             className="dataTableActionBtn green"
-            onClick={() => handleUpdate(row._id)}
+            onClick={() => handleUpdate(row._id)} // Ensure selectedUser is used in handleUpdate
           >
             ✓
           </button>
@@ -157,17 +205,24 @@ const CarInspectionPending = () => {
       width: "20%",
     },
     {
-      name: "Add Report",
+      name: "Select Inspector",
       cell: (row) => (
-        <button className="dataTableActionBtn gray">
-          <Link
-            to={`/dashboard/car-inspection-data/add-report?carDetailsId=${row._id}`}
-          >
-            Add Report
-          </Link>
-        </button>
+        <select
+          value={selectedUser}
+          onChange={(e) => {
+            setSelectedUser(e.target.value);
+            console.log(e.target.value); // Log the selected user ID
+          }}
+        >
+          <option value="">Select Inspector</option>
+          {userList.map((user) => (
+            <option key={user._id} value={user._id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
       ),
-      width: "20%",
+      width: "25%",
     },
   ];
 
@@ -177,7 +232,31 @@ const CarInspectionPending = () => {
       <h2>Car Inspection Request Pending</h2>
       <br />
       <hr />
-      <DataTable data={data} columns={coulmns} />
+      <br />
+      {/* --- Show Service Select Portion --- */}
+      <div style={{ padding: "1em 0em" }}>
+        <span style={{ padding: "1em 0em 0em 0em" }}>Choose Service</span>
+        <select
+          value={selectedService}
+          onChange={(e) => setSelectedService(e.target.value)}
+          style={{ width: "10%" }}
+        >
+          <option value="001">001</option>
+          <option value="002">002</option>
+          <option value="003">003</option>
+          <option value="004">004</option>
+        </select>
+        <br />
+        <br />
+        <br />
+        {noDataMessage ? (
+          <p>{noDataMessage}</p>
+        ) : (
+          <DataTable data={data} columns={coulmns} />
+        )}
+      </div>
+      <br />
+      {/* --- Modal --- */}
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

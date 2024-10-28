@@ -52,40 +52,41 @@ const BuyCarForMeApproved = () => {
     {
       name: "Client Name",
       selector: (row) => row.user.name,
+      width: "15%",
     },
     {
       name: "Phone No.",
       selector: (row) => row.user.phoneNumber,
+      width: "15%",
     },
-    // {
-    //   name:"Location",
-    //   selector:row=>`${row.user.address} ${row.location}`,
-    //   wrap:true,
-    //   width:"30%"
-    // },
     {
       name: "Car Detail",
-      selector: (row) => `${row.year} ${row.brand} ${row.model} ${row.variant}`,
-      wrap: true,
+      selector: (row) => `${row.year} ${row.brand} ${row.model} ${row.varient}`,
+      width: "30%",
     },
     {
-      name: "Payable Amount",
+      name: "Amount",
       selector: (row) => row.price,
+      width: "10%",
     },
     {
       name: "Payment Method",
       selector: (row) => row.paymentMethod,
+      width: "15%",
     },
     {
       name:"Image",
       selector:(row)=>(
-        <button className="dataTableActionBtn green" onClick={()=>handleOpenImageModal(row.image)}>View Image</button>
-      )
+        <button className="dataTableActionBtn green" onClick={()=>handleOpenImageModal(row.image)}>View Img</button>
+      ),
+      width: "15%",
     }
   ];
 
   return (
     <div>
+      <br/>
+      <br/>
       <h2>List It For You Approved Requests</h2>
       <br />
       <hr />
